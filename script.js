@@ -1,5 +1,7 @@
-// ===== Video audio click-to-enable + fade-in =====
+// ===== Video audio enable (desktop click anywhere, mobile button) =====
 const video = document.getElementById('bg-video');
+const btn = document.getElementById('enableSound');
+const hint = document.getElementById('soundHint');
 
 const MAX_VOLUME = 0.15;
 const FADE_STEP  = 0.01;
@@ -9,9 +11,7 @@ let currentVolume = 0;
 let fadeTimer = null;
 
 function startFadeIn() {
-  // Avoid stacking intervals if user double-clicks
   if (fadeTimer) clearInterval(fadeTimer);
-
   fadeTimer = setInterval(() => {
     if (currentVolume < MAX_VOLUME) {
       currentVolume = Math.min(currentVolume + FADE_STEP, MAX_VOLUME);
@@ -24,23 +24,34 @@ function startFadeIn() {
 }
 
 async function enableAudio() {
-  // Ensure autoplay video is actually playing (some browsers pause it)
-  try {
-    await video.play();
-  } catch (e) {
-    // If play fails, we'll still try unmute; user gesture should make it okay on next click
-  }
+  // iOS needs play() during the same gesture that unmutes
+  try { await video.play(); } catch (e) {}
 
   video.muted = false;
   video.volume = 0;
   currentVolume = 0;
-
   startFadeIn();
 
+  // cleanup UI + listeners
+  btn?.remove();
+  hint && (hint.style.display = 'none');
   window.removeEventListener('click', enableAudio);
+  btn?.removeEventListener('click', enableAudio);
 }
 
-window.addEventListener('click', enableAudio, { once: false });
+// Detect "mobile-ish" (good enough + pragmatic)
+const isMobile = matchMedia('(pointer: coarse)').matches;
+
+// Desktop: click anywhere
+if (!isMobile) {
+  btn && (btn.style.display = 'none'); // hide button
+  window.addEventListener('click', enableAudio);
+} else {
+  // Mobile: explicit button
+  hint && (hint.style.display = 'none'); // hide "click anywhere" hint
+  btn && btn.addEventListener('click', enableAudio);
+}
+
 
 // ===== Toast + copy logic =====
 const toastEl = document.getElementById('toast');
