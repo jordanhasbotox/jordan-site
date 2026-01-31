@@ -34,7 +34,6 @@ html, body {
   -webkit-backdrop-filter: blur(6px);
 }
 
-
 /* ===== CONTENT ===== */
 .content {
   position: relative;
@@ -65,7 +64,6 @@ html, body {
   margin-bottom: 12px;
 }
 
-
 @keyframes rainbow {
   0%   { color: #ff004c; }
   14%  { color: #ff7a00; }
@@ -77,9 +75,7 @@ html, body {
   100% { color: #ff004c; }
 }
 
-
 /* ===== CLOCK ===== */
-
 .clock-wrap {
   margin-top: 6px;
   margin-bottom: 22px;
@@ -91,10 +87,8 @@ html, body {
 
 .clock {
   opacity: 0.9;
+  color: #e0e0e0;
 }
-
-
-
 
 /* ===== LINKS ===== */
 a {
@@ -151,7 +145,6 @@ a:hover {
   color: #00ff5a;
 }
 
-
 .muted {
   color: #aaa;
   font-size: 20px;
@@ -172,16 +165,8 @@ a:hover {
   align-items: center;
 }
 
-.clock {
-  color: #e0e0e0;
-}
-
 .dot {
   opacity: 0.7;
-}
-
-.now-text {
-  color: #00ff5a;
 }
 
 .rainbow-now {
@@ -189,7 +174,7 @@ a:hover {
   animation: rainbow 5.5s linear infinite;
 }
 
-
+/* ===== SOUND BUTTON ===== */
 .sound-btn {
   margin-top: 18px;
   padding: 10px 16px;
@@ -198,20 +183,17 @@ a:hover {
   color: #00ff5a;
   background: rgba(0,0,0,0.6);
   border: 1px solid rgba(0,255,90,0.4);
+  border-radius: 10px;
   cursor: pointer;
+}
+
+.sound-btn:hover {
+  background: rgba(0,0,0,0.8);
 }
 
 .sound-btn:active {
   transform: translateY(1px);
 }
-
-#enableSound {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  z-index: 9999 !important;
-}
-
 
 /* ===== TOAST POPUP ===== */
 .toast {
@@ -236,4 +218,3 @@ a:hover {
   opacity: 1;
   transform: translateX(-50%) translateY(-6px);
 }
-
