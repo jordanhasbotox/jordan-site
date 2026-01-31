@@ -1,5 +1,10 @@
-/* ===== RESET ===== */
-html, body {
+/* =========================================================
+   RESET / BASE STYLES
+   Sets up full-height layout, removes default spacing,
+   and defines the global font and background.
+   ========================================================= */
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -11,7 +16,10 @@ html, body {
   font-weight: 300;
 }
 
-/* ===== BACKGROUND VIDEO ===== */
+/* =========================================================
+   BACKGROUND VIDEO
+   Full-screen fixed video behind all content.
+   ========================================================= */
 #bg-video {
   position: fixed;
   inset: 0;
@@ -20,16 +28,21 @@ html, body {
   object-fit: cover;
   z-index: 0;
 
+  /* Slight visual tuning for contrast and colour pop */
   filter: contrast(1.1) brightness(0.9) saturate(1.3);
 }
 
-/* ===== OVERLAY ===== */
+/* =========================================================
+   OVERLAY
+   Adds darkening + blur over the background video.
+   pointer-events disabled so it doesn't block interaction.
+   ========================================================= */
 .overlay {
   position: fixed;
   inset: 0;
   z-index: 1;
 
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 
@@ -37,116 +50,182 @@ html, body {
   pointer-events: none;
 }
 
-/* ===== CONTENT ===== */
+/* =========================================================
+   MAIN CONTENT CONTAINER
+   Foreground layout wrapper for all visible UI.
+   ========================================================= */
 .content {
   position: relative;
   z-index: 2;
   height: 100%;
+
   display: grid;
   justify-items: center;
   align-content: start;
+
   padding-top: 120px;
   color: #eaeaea;
   text-align: center;
 }
 
+/* Inner width constraint for readability */
 .wrap {
   max-width: 700px;
   padding: 0 18px;
 }
 
-/* ===== RAINBOW NAME ===== */
+/* =========================================================
+   RAINBOW NAME / TITLE
+   Animated colour-cycling display name.
+   ========================================================= */
 .rainbow {
   font-family: "Stalinist One", system-ui, sans-serif;
   font-size: 32px;
   font-weight: 400;
   letter-spacing: 1px;
   line-height: 1;
+
   display: inline-block;
-  animation: rainbow 2.5s linear infinite;
   margin-bottom: 12px;
+
+  animation: rainbow 2.5s linear infinite;
 }
 
+/* Rainbow colour animation */
 @keyframes rainbow {
-  0%   { color: #ff004c; }
-  14%  { color: #ff7a00; }
-  28%  { color: #ffe600; }
-  42%  { color: #2bff00; }
-  57%  { color: #00d9ff; }
-  71%  { color: #2b65ff; }
-  85%  { color: #b200ff; }
-  100% { color: #ff004c; }
+  0% {
+    color: #ff004c;
+  }
+  14% {
+    color: #ff7a00;
+  }
+  28% {
+    color: #ffe600;
+  }
+  42% {
+    color: #2bff00;
+  }
+  57% {
+    color: #00d9ff;
+  }
+  71% {
+    color: #2b65ff;
+  }
+  85% {
+    color: #b200ff;
+  }
+  100% {
+    color: #ff004c;
+  }
 }
 
-/* ===== CLOCK ===== */
+/* =========================================================
+   CLOCK
+   Retro-style digital clock display.
+   ========================================================= */
 .clock-wrap {
   margin-top: 6px;
   margin-bottom: 22px;
+
   font-family: "VT323", monospace;
   font-size: 24px;
   letter-spacing: 0.8px;
   color: #e0e0e0;
 }
 
-.clock { opacity: 0.9; }
+/* Slightly softened clock text */
+.clock {
+  opacity: 0.9;
+}
 
-/* ===== LINKS ===== */
+/* =========================================================
+   LINKS & INTERACTION
+   ========================================================= */
 a {
   color: #00ff5a;
   text-decoration: none;
 }
-a:hover { text-decoration: underline; }
 
+a:hover {
+  text-decoration: underline;
+}
+
+/* Prevent text selection where needed */
 .noselect {
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+/* Allow selection on interactive text */
 .selectable {
   user-select: text;
   -webkit-user-select: text;
 }
 
+/* Click-to-copy handles (Discord / Riot IDs) */
 .copy-handle {
   color: #00ff5a;
   cursor: pointer;
   text-decoration: none;
 }
+
 .copy-handle:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
+/* =========================================================
+   CONTENT SECTIONS
+   ========================================================= */
 .section {
   margin-top: 22px;
   letter-spacing: 0.6px;
 }
 
+/* =========================================================
+   "NOW" STATUS LINE
+   ========================================================= */
 .now-section {
   margin-top: 20px;
+
   font-family: "VT323", monospace;
   font-size: 22px;
   letter-spacing: 0.6px;
   color: #aaa;
 }
 
-.now-label { color: #aaa; }
-.now-text { color: #00ff5a; }
-
-.muted {
+.now-label {
   color: #aaa;
-  font-size: 20px;
-  margin-top: 26px;
-  letter-spacing: 0.4px;
-  font-family: "VT323", monospace;
 }
 
+.now-text {
+  color: #00ff5a;
+}
+
+/* Animated rainbow effect for current activity */
 .rainbow-now {
   font-weight: 700;
   animation: rainbow 5.5s linear infinite;
 }
 
-/* ===== SOUND BUTTON ===== */
+/* =========================================================
+   MUTED / HINT TEXT
+   Used for sound interaction guidance.
+   ========================================================= */
+.muted {
+  margin-top: 26px;
+
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  letter-spacing: 0.4px;
+  color: #aaa;
+}
+
+/* =========================================================
+   SOUND BUTTON
+   Always visible, mobile-safe, gesture-required audio toggle.
+   ========================================================= */
 .sound-btn {
   position: fixed;
   left: 50%;
@@ -155,23 +234,29 @@ a:hover { text-decoration: underline; }
   z-index: 9998;
 
   padding: 10px 16px;
+
   font-family: "VT323", monospace;
   font-size: 20px;
   color: #00ff5a;
-  background: rgba(0,0,0,0.72);
-  border: 1px solid rgba(0,255,90,0.45);
+
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(0, 255, 90, 0.45);
   cursor: pointer;
 
-  /* make sure it's tappable */
+  /* Ensure button is always tappable */
   pointer-events: auto;
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Subtle press feedback */
 .sound-btn:active {
   transform: translateX(-50%) translateY(1px);
 }
 
-/* ===== TOAST POPUP ===== */
+/* =========================================================
+   TOAST POPUP
+   Temporary feedback (e.g. "Copied!")
+   ========================================================= */
 .toast {
   position: fixed;
   left: 50%;
@@ -180,8 +265,9 @@ a:hover { text-decoration: underline; }
   z-index: 9999;
 
   padding: 12px 16px;
-  border: 1px solid rgba(0,255,90,0.35);
-  background: rgba(0,0,0,0.75);
+  border: 1px solid rgba(0, 255, 90, 0.35);
+  background: rgba(0, 0, 0, 0.75);
+
   color: #eaeaea;
   letter-spacing: 0.5px;
 
@@ -190,6 +276,7 @@ a:hover { text-decoration: underline; }
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
+/* Visible state (triggered via JS) */
 .toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(-6px);
