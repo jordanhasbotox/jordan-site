@@ -1,9 +1,7 @@
-// ===== Video audio enable (desktop click anywhere, mobile button) =====
+// ===== Video audio enable (button on all, click-anywhere on desktop only) =====
 const video = document.getElementById('bg-video');
 const btn = document.getElementById('enableSound');
 const hint = document.getElementById('soundHint');
-
-const desktopHint = document.getElementById('desktopSoundHint');
 
 const MAX_VOLUME = 0.15;
 const FADE_STEP  = 0.01;
@@ -26,39 +24,43 @@ function startFadeIn() {
 }
 
 async function enableAudio() {
-  // iOS needs play() during the same gesture that unmutes
-  try { await video.play(); } catch (e) {}
+  // Must be triggered by a user gesture on iOS
+  try {
+    video.muted = false;   // unmute first
+    video.volume = 0;
+    currentVolume = 0;
 
-  video.muted = false;
-  video.volume = 0;
-  currentVolume = 0;
-  startFadeIn();
+    await video.play();    // then play (in same gesture)
+    startFadeIn();
+  } catch (e) {
+    console.warn('Audio enable failed:', e);
+    return; // keep button so user can retry
+  }
 
   // cleanup UI + listeners
   btn?.remove();
-  hint && (hint.style.display = 'none');
-  window.removeEventListener('click', enableAudio);
-  btn?.removeEventListener('click', enableAudio);
+  if (hint) hint.style.display = 'none';
+  window.removeEventListener('click', desktopClickEnable);
 }
 
-const isMobile =
-  matchMedia('(pointer: coarse)').matches ||
-  matchMedia('(max-width: 768px)').matches; // pragmatic fallback
+// Button works everywhere (mobile + desktop)
+btn?.addEventListener('click', (e) => {
+  e.stopPropagation(); // don’t let desktop click-anywhere also fire
+  enableAudio();
+});
 
-if (!isMobile) {
-  // Desktop: click anywhere
-  btn && (btn.style.display = 'none');
-  desktopHint && (desktopHint.style.display = 'block');
-  window.addEventListener('click', enableAudio);
-} else {
-  // Mobile: explicit button
-  desktopHint && (desktopHint.style.display = 'none'); // hide the one inside content
-  hint && (hint.style.display = 'none');              // hide the other hint
-  btn && (btn.style.display = 'block');               // force show
-  btn && btn.addEventListener('click', enableAudio);
+// Desktop-only click anywhere
+const isDesktop = matchMedia('(pointer: fine)').matches;
+
+function desktopClickEnable(e) {
+  // If they clicked the button, the button handler already does it
+  if (btn && e.target === btn) return;
+  enableAudio();
 }
 
-
+if (isDesktop) {
+  window.addEventListener('click', desktopClickEnable);
+}
 
 
 // ===== Toast + copy logic =====
@@ -108,6 +110,7 @@ riotEl?.addEventListener('click', async () => {
   showToast(ok ? "Now you copied my Riot ID...add me fr" : "Couldn’t copy — copy it manually: " + riot);
 });
 
+
 // ===== Live clock (local time) =====
 const clockEl = document.getElementById('clock');
 
@@ -115,7 +118,6 @@ function updateClock() {
   if (!clockEl) return;
 
   const now = new Date();
-  // Example: "21:04:09"
   const time = now.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
@@ -127,4 +129,3 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
-
