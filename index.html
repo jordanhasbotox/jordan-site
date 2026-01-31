@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap" rel="stylesheet">
 
+
   <!-- Site CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -30,9 +31,9 @@
     <div class="wrap">
       <div class="rainbow">jordan</div>
 
-      <div class="clock-wrap">
-        <span id="clock" class="clock" aria-label="Current time"></span>
-      </div>
+<div class="clock-wrap">
+  <span id="clock" class="clock" aria-label="Current time"></span>
+</div>
 
       <div class="section">
         <b class="noselect">socials</b><br>
@@ -63,21 +64,24 @@
         </span>
       </div>
 
-      <div class="now-section">
-        <span class="now-label">now:</span>
-        <span class="now-text rainbow-now">playing the finals</span>
-      </div>
+<div class="now-section">
+  <span class="now-label">now:</span>
+  <span class="now-text rainbow-now">playing the finals</span>
+</div>
 
-      <!-- Sound control (shown on all platforms) -->
-      <button id="enableSound" class="sound-btn" type="button">
-        🔊 Enable sound
-      </button>
 
-      <div class="muted" id="soundHint">
-        Click anywhere or tap the button to enable sound
-      </div>
+
+
+      <div class="muted">Click anywhere to enable sound</div>
     </div>
   </div>
+
+<button id="enableSound" class="sound-btn" type="button">
+  🔊 Enable sound
+</button>
+
+<div class="muted" id="soundHint">Click anywhere to enable sound</div>
+
 
   <!-- Site JS -->
   <script src="script.js" defer></script>
