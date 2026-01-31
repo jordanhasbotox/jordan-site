@@ -69,6 +69,13 @@ body {
   font-size: 14px;
 }
 
+.section b {
+  text-decoration: underline;
+  text-underline-offset: 4;
+  text-decoration-thickness: 1px;
+}
+
+
 /* Inner width constraint for readability */
 .wrap {
   max-width: 700px;
@@ -301,5 +308,6 @@ a:hover,
   opacity: 1;
   transform: translateX(-50%) translateY(-6px);
 }
+
 
 
