@@ -32,8 +32,10 @@ html, body {
   background: rgba(0,0,0,0.35);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-}
 
+  /* IMPORTANT: don't steal taps/clicks */
+  pointer-events: none;
+}
 
 /* ===== CONTENT ===== */
 .content {
@@ -57,14 +59,13 @@ html, body {
 .rainbow {
   font-family: "Stalinist One", system-ui, sans-serif;
   font-size: 32px;
-  font-weight: 400; /* Stalinist One only has one weight */
+  font-weight: 400;
   letter-spacing: 1px;
   line-height: 1;
   display: inline-block;
   animation: rainbow 2.5s linear infinite;
   margin-bottom: 12px;
 }
-
 
 @keyframes rainbow {
   0%   { color: #ff004c; }
@@ -77,9 +78,7 @@ html, body {
   100% { color: #ff004c; }
 }
 
-
 /* ===== CLOCK ===== */
-
 .clock-wrap {
   margin-top: 6px;
   margin-bottom: 22px;
@@ -89,42 +88,30 @@ html, body {
   color: #e0e0e0;
 }
 
-.clock {
-  opacity: 0.9;
-}
-
-
-
+.clock { opacity: 0.9; }
 
 /* ===== LINKS ===== */
 a {
   color: #00ff5a;
   text-decoration: none;
 }
+a:hover { text-decoration: underline; }
 
-a:hover {
-  text-decoration: underline;
-}
-
-/* Prevent selecting labels, allow handles only */
 .noselect {
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-
 .selectable {
   user-select: text;
   -webkit-user-select: text;
 }
 
-/* Make "copy" feel clickable */
 .copy-handle {
   color: #00ff5a;
   cursor: pointer;
   text-decoration: none;
 }
-
 .copy-handle:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -143,14 +130,8 @@ a:hover {
   color: #aaa;
 }
 
-.now-label {
-  color: #aaa;
-}
-
-.now-text {
-  color: #00ff5a;
-}
-
+.now-label { color: #aaa; }
+.now-text { color: #00ff5a; }
 
 .muted {
   color: #aaa;
@@ -160,66 +141,41 @@ a:hover {
   font-family: "VT323", monospace;
 }
 
-.meta {
-  margin-top: -6px;
-  margin-bottom: 18px;
-  font-family: "VT323", monospace;
-  font-size: 22px;
-  color: #bdbdbd;
-  letter-spacing: 0.6px;
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.clock {
-  color: #e0e0e0;
-}
-
-.dot {
-  opacity: 0.7;
-}
-
-.now-text {
-  color: #00ff5a;
-}
-
 .rainbow-now {
   font-weight: 700;
   animation: rainbow 5.5s linear infinite;
 }
 
-
+/* ===== SOUND BUTTON ===== */
 .sound-btn {
   position: fixed;
   left: 50%;
-  bottom: 22px;
+  bottom: calc(18px + env(safe-area-inset-bottom)); /* iPhone safe area */
   transform: translateX(-50%);
-  z-index: 4; /* above video (0), overlay (1), content (2), toast (9999 still above) */
+  z-index: 9998;
 
   padding: 10px 16px;
   font-family: "VT323", monospace;
   font-size: 20px;
   color: #00ff5a;
-  background: rgba(0,0,0,0.6);
-  border: 1px solid rgba(0,255,90,0.4);
+  background: rgba(0,0,0,0.72);
+  border: 1px solid rgba(0,255,90,0.45);
   cursor: pointer;
+
+  /* make sure it's tappable */
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .sound-btn:active {
   transform: translateX(-50%) translateY(1px);
 }
 
-
-
-
-
-
 /* ===== TOAST POPUP ===== */
 .toast {
   position: fixed;
   left: 50%;
-  bottom: 28px;
+  bottom: calc(70px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
   z-index: 9999;
 
@@ -238,4 +194,3 @@ a:hover {
   opacity: 1;
   transform: translateX(-50%) translateY(-6px);
 }
-
