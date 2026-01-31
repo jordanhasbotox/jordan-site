@@ -205,7 +205,12 @@ a:hover {
   transform: translateY(1px);
 }
 
-
+#enableSound {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 9999 !important;
+}
 
 
 /* ===== TOAST POPUP ===== */
@@ -231,3 +236,4 @@ a:hover {
   opacity: 1;
   transform: translateX(-50%) translateY(-6px);
 }
+
