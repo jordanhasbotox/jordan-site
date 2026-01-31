@@ -1,86 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>jordan</title>
+  <head>
+    <!-- =========================================================
+         Document metadata (encoding, responsiveness, SEO basics)
+         ========================================================= -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<link rel="icon" href="/Naruto.ico">
-  
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap" rel="stylesheet">
+    <!-- Page title (shown in browser tab / bookmarks) -->
+    <title>jordan</title>
 
-  <!-- Site CSS -->
-  <link rel="stylesheet" href="style.css" />
-</head>
+    <!-- Prevent Google from offering to translate this page -->
+    <meta name="google" value="notranslate" />
 
-<body>
-  <!-- Background video (contains audio too) -->
-  <video id="bg-video" autoplay muted loop playsinline preload="auto">
-    <source src="bgvideoaudio.mp4" type="video/mp4">
-  </video>
+    <!-- Site icon (favicon) -->
+    <link rel="icon" href="/Naruto.ico" />
 
-  <div class="overlay"></div>
+    <!-- =========================================================
+         Fonts (Google Fonts)
+         These are loaded before your CSS so font usage is available.
+         ========================================================= -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Toast popup -->
-  <div id="toast" class="toast">Copied!</div>
+    <!-- =========================================================
+         Site CSS (your main stylesheet)
+         ========================================================= -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-  <!-- Foreground content -->
-  <div class="content">
-    <div class="wrap">
-      <div class="rainbow">jordan</div>
+  <body>
+    <!-- =========================================================
+         Background video (includes audio track, but starts muted)
+         - autoplay + loop: plays continuously
+         - muted: required by most browsers to allow autoplay
+         - playsinline: avoids full-screen on mobile
+         - preload="auto": hints to load early for smoother playback
+         ========================================================= -->
+    <video id="bg-video" autoplay muted loop playsinline preload="auto">
+      <source src="bgvideoaudio.mp4" type="video/mp4" />
+    </video>
 
-      <div class="clock-wrap">
-        <span id="clock" class="clock" aria-label="Current time"></span>
+    <!-- Overlay layer (typically used to darken/blur/tint background) -->
+    <div class="overlay"></div>
+
+    <!-- =========================================================
+         Toast popup (used for quick feedback, e.g., "Copied!")
+         Typically shown/hidden by JavaScript + CSS animations.
+         ========================================================= -->
+    <div id="toast" class="toast">Copied!</div>
+
+    <!-- =========================================================
+         Foreground content (main visible UI)
+         ========================================================= -->
+    <div class="content">
+      <div class="wrap">
+        <!-- Main title / name display -->
+        <div class="rainbow">jordan</div>
+
+        <!-- =====================================================
+             Live clock
+             - #clock is populated by JS
+             - aria-label helps screen readers understand the content
+             ===================================================== -->
+        <div class="clock-wrap">
+          <span id="clock" class="clock" aria-label="Current time"></span>
+        </div>
+
+        <!-- =====================================================
+             Section: socials
+             ===================================================== -->
+        <div class="section">
+          <!-- Heading text (noselect likely prevents highlight selection) -->
+          <b class="noselect">socials</b><br />
+
+          <!-- Twitter / X link -->
+          <span class="noselect">twitter:</span>
+          <a
+            class="selectable"
+            href="https://x.com/jordan6ft2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @jordan6ft2
+          </a>
+          <br />
+
+          <!-- GitHub link (currently placeholder href="#") -->
+          <span class="noselect">github:</span>
+          <a class="selectable" href="#">@</a><br />
+
+          <!-- Discord handle (click-to-copy behaviour via JS) -->
+          <span class="noselect">discord:</span>
+          <span
+            id="discordCopy"
+            class="copy-handle selectable"
+            data-discord="jordan6ft2"
+          >
+            jordan6ft2
+          </span>
+        </div>
+
+        <!-- =====================================================
+             Section: gaming
+             ===================================================== -->
+        <div class="section">
+          <b class="noselect">gaming</b><br />
+
+          <!-- Steam (empty span right now; likely filled by JS later) -->
+          <span class="noselect">steam:</span>
+          <span class="selectable" style="color: #00ff5a"></span><br />
+
+          <!-- Riot ID (click-to-copy behaviour via JS) -->
+          <span class="noselect">riot:</span>
+          <span
+            id="riotCopy"
+            class="copy-handle selectable"
+            data-riot="jordan#0048"
+          >
+            <span style="color: #00ff5a">jordan</span
+            ><span style="color: #ff004c">#0048</span>
+          </span>
+        </div>
+
+        <!-- =====================================================
+             "Now" status line (what you're currently doing/playing)
+             ===================================================== -->
+        <div class="now-section">
+          <span class="now-label">now:</span>
+          <span class="now-text rainbow-now">playing the finals</span>
+        </div>
+
+        <!-- Hint text for enabling audio (likely toggled by JS) -->
+        <div class="muted" id="soundHint">
+          Click anywhere or tap the button to enable sound
+        </div>
       </div>
-
-      <div class="section">
-        <b class="noselect">socials</b><br>
-
-        <span class="noselect">twitter:</span>
-        <a class="selectable" href="https://x.com/jordan6ft2" target="_blank" rel="noopener noreferrer">
-          @jordan6ft2
-        </a><br>
-
-        <span class="noselect">github:</span>
-        <a class="selectable" href="#">@</a><br>
-
-        <span class="noselect">discord:</span>
-        <span id="discordCopy" class="copy-handle selectable" data-discord="jordan6ft2">
-          jordan6ft2
-        </span>
-      </div>
-
-      <div class="section">
-        <b class="noselect">gaming</b><br>
-
-        <span class="noselect">steam:</span>
-        <span class="selectable" style="color:#00ff5a"></span><br>
-
-        <span class="noselect">riot:</span>
-        <span id="riotCopy" class="copy-handle selectable" data-riot="jordan#0048">
-          <span style="color:#00ff5a">jordan</span><span style="color:#ff004c">#0048</span>
-        </span>
-      </div>
-
-      <div class="now-section">
-        <span class="now-label">now:</span>
-        <span class="now-text rainbow-now">playing the finals</span>
-      </div>
-
-      <div class="muted" id="soundHint">Click anywhere or tap the button to enable sound</div>
     </div>
-  </div>
 
-  <!-- Always-visible sound button -->
-  <button id="enableSound" class="sound-btn" type="button" aria-label="Enable sound">
-    🔊 Enable sound
-  </button>
+    <!-- =========================================================
+         Always-visible sound button
+         - Used to unmute/enable audio (browser gesture requirement)
+         ========================================================= -->
+    <button
+      id="enableSound"
+      class="sound-btn"
+      type="button"
+      aria-label="Enable sound"
+    >
+      🔊 Enable sound
+    </button>
 
-  <!-- Site JS -->
-  <script src="script.js" defer></script>
-</body>
+    <!-- =========================================================
+         Site JavaScript
+         - defer: waits until HTML is parsed before running
+         ========================================================= -->
+    <script src="script.js" defer></script>
+  </body>
 </html>
-
