@@ -191,7 +191,12 @@ a:hover {
 
 
 .sound-btn {
-  margin-top: 18px;
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 4; /* above video (0), overlay (1), content (2), toast (9999 still above) */
+
   padding: 10px 16px;
   font-family: "VT323", monospace;
   font-size: 20px;
@@ -202,8 +207,10 @@ a:hover {
 }
 
 .sound-btn:active {
-  transform: translateY(1px);
+  transform: translateX(-50%) translateY(1px);
 }
+
+
 
 
 
@@ -231,3 +238,4 @@ a:hover {
   opacity: 1;
   transform: translateX(-50%) translateY(-6px);
 }
+
