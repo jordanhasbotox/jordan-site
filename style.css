@@ -133,7 +133,6 @@ body {
   color: #e0e0e0;
 }
 
-/* Slightly softened clock text */
 .clock {
   opacity: 0.9;
 }
@@ -146,8 +145,20 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
+/* =========================================================
+   FLASH / BLINK HOVER EFFECT
+   Replaces underline-on-hover.
+   ========================================================= */
+@keyframes flash {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
 }
 
 /* Prevent text selection where needed */
@@ -170,9 +181,11 @@ a:hover {
   text-decoration: none;
 }
 
+/* Apply flash on hover (links + copy handles) */
+a:hover,
 .copy-handle:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  font-weight: 600;
+  animation: flash 0.8s ease-in-out infinite;
 }
 
 /* =========================================================
