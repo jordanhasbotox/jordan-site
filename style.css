@@ -66,6 +66,7 @@ body {
   padding-top: 120px;
   color: #eaeaea;
   text-align: center;
+  font-size: 14px;
 }
 
 /* Inner width constraint for readability */
@@ -294,3 +295,4 @@ a:hover,
   opacity: 1;
   transform: translateX(-50%) translateY(-6px);
 }
+
