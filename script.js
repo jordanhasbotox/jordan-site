@@ -3,6 +3,8 @@ const video = document.getElementById('bg-video');
 const btn = document.getElementById('enableSound');
 const hint = document.getElementById('soundHint');
 
+const desktopHint = document.getElementById('desktopSoundHint');
+
 const MAX_VOLUME = 0.15;
 const FADE_STEP  = 0.01;
 const FADE_RATE  = 120;
@@ -39,18 +41,24 @@ async function enableAudio() {
   btn?.removeEventListener('click', enableAudio);
 }
 
-// Detect "mobile-ish" (good enough + pragmatic)
-const isMobile = matchMedia('(pointer: coarse)').matches;
+const isMobile =
+  matchMedia('(pointer: coarse)').matches ||
+  matchMedia('(max-width: 768px)').matches; // pragmatic fallback
 
-// Desktop: click anywhere
 if (!isMobile) {
-  btn && (btn.style.display = 'none'); // hide button
+  // Desktop: click anywhere
+  btn && (btn.style.display = 'none');
+  desktopHint && (desktopHint.style.display = 'block');
   window.addEventListener('click', enableAudio);
 } else {
   // Mobile: explicit button
-  hint && (hint.style.display = 'none'); // hide "click anywhere" hint
+  desktopHint && (desktopHint.style.display = 'none'); // hide the one inside content
+  hint && (hint.style.display = 'none');              // hide the other hint
+  btn && (btn.style.display = 'block');               // force show
   btn && btn.addEventListener('click', enableAudio);
 }
+
+
 
 
 // ===== Toast + copy logic =====
@@ -119,3 +127,4 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
+
