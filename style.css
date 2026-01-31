@@ -197,6 +197,12 @@ a:hover,
   letter-spacing: 0.6px;
 }
 
+.blue-team .selectable:hover {
+  color: #4da3ff;
+  text-shadow: 0 0 6px rgba(77, 163, 255, 0.6);
+}
+
+
 /* =========================================================
    "NOW" STATUS LINE
    ========================================================= */
@@ -295,4 +301,5 @@ a:hover,
   opacity: 1;
   transform: translateX(-50%) translateY(-6px);
 }
+
 
