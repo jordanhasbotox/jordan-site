@@ -167,6 +167,24 @@ riotEl?.addEventListener('click', async () => {
 });
 
 /* =========================================================
+   EMBARK ID COPY HANDLER
+   ========================================================= */
+const embarkEl = document.getElementById('embarkCopy');
+
+embarkEl?.addEventListener('click', async () => {
+  const embark =
+    embarkEl.dataset.riot || embarkEl.textContent.trim();
+
+  const ok = await copyText(embark);
+
+  showToast(
+    ok
+      ? 'Copied embark ID'
+      : 'Couldn’t copy — copy it manually: ' + embark
+  );
+});
+
+/* =========================================================
    LIVE CLOCK (LOCAL TIME)
    Updates every second.
    ========================================================= */
@@ -188,3 +206,4 @@ function updateClock() {
 /* Initial render + interval update */
 updateClock();
 setInterval(updateClock, 1000);
+
